@@ -6,13 +6,13 @@
 /*   By: gabrrodr <gabrrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:44:10 by gabrrodr          #+#    #+#             */
-/*   Updated: 2024/07/01 15:28:56 by gabrrodr         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:52:42 by gabrrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_data()
+t_data	*init_data()
 {
 	t_data	*data;
 
@@ -24,6 +24,11 @@ void	init_data()
 	data->map = NULL;
 	data->map_info = ft_calloc(1, sizeof(t_map_info));
 	if (!data->map_info)
+		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
+	data->textures = ft_calloc(1, sizeof(t_textures));
+	if (!data->textures)
+		return (ft_putstr_fd("Error: mallos execution.\n", 2), NULL);
+	data->player = ft_calloc(1, sizeof(t_player));
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
 	
 }
