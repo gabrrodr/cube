@@ -14,7 +14,15 @@
 
 int main(int argc, char **argv)
 {
+	t_data	*data;
+
 	if (argc != 2)
 		return (ft_putstr_fd("Error: no file provided\n", 2), 1);
-	init_data();
+	if (!valid_file(argv[1], ".cub"))
+		return (ft_putstr_fd("Error: Invalid file\n", 2), 1);
+	data = init_data();
+	if (!data || !valid_map(data, argv[1]))
+		return (/*free_data(data),*/ 1);
+
+	/*add back all the free_data and free_arrays*/
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-void	init_data()
+t_data	*init_data(void)
 {
 	t_data	*data;
 
@@ -25,5 +25,5 @@ void	init_data()
 	data->map_info = ft_calloc(1, sizeof(t_map_info));
 	if (!data->map_info)
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
-	
+	return (data);
 }
