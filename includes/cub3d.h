@@ -6,7 +6,7 @@
 /*   By: gabrrodr <gabrrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:06:46 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/01 15:29:18 by gabrrodr         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:46:30 by gabrrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ typedef struct s_player
 	t_pos	position;
 	t_pos	dir;
 	t_pos	cam;
-	bool	move_up;
-	bool	move_down;
-	bool	move_right;
-	bool	move_left;
+	int		moved;
+	//bool	move_up;
+	//bool	move_down;
+	//bool	move_right;
+	//bool	move_left;
 	int		move_x;
 	int		move_y;
 	int		rotate;
