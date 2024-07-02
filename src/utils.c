@@ -12,6 +12,19 @@
 
 #include "../includes/cub3d.h"
 
+bool	only_spaces(const char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] != ' ' && str[i] != '\n')
+			return (false);
+	}
+	return (true);
+}
+
 int	rgb_to_int(char *str)
 {
 	int		res;

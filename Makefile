@@ -27,9 +27,11 @@ NAME = cub3D
 SRC =	src/main.c \
 		src/init.c \
 		src/validations.c \
-		src/validate_map.c \
 		src/utils.c \
 		src/parse_identifiers.c \
+		src/parse_map.c \
+		src/parse_map_utils.c \
+		src/parse_player.c \
 
 OBJ = $(SRC:.c=.o)
 
