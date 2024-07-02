@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:10:45 by digoncal          #+#    #+#             */
-/*   Updated: 2024/01/18 13:11:25 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:42:27 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	unsigned int	i;
 
 	if (!s1 || !s2)
-		return (0);
+		return (1);
 	i = 0;
 	while (s1[i] && s2[i])
 	{

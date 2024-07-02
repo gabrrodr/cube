@@ -90,5 +90,14 @@ typedef struct s_data
 
 /*---------- FUNCTIONS ----------*/
 
+t_data	*init_data(void);
+
+//VALID MAP
+bool	valid_file(char *file, char *ext);
+bool	valid_map(t_data *data, char *file);
+bool	parse_identifiers(t_data *data, char *file);
+bool	is_digit(char *str);
+char	*trim_content(char *str);
+int		rgb_to_int(char *str);
 
 #endif

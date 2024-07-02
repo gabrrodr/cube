@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-t_data	*init_data()
+t_data	*init_data(void)
 {
 	t_data	*data;
 
@@ -30,5 +30,5 @@ t_data	*init_data()
 		return (ft_putstr_fd("Error: mallos execution.\n", 2), NULL);
 	data->player = ft_calloc(1, sizeof(t_player));
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
-	
+		return (data);
 }
