@@ -12,6 +12,15 @@
 
 #include "../includes/cub3d.h"
 
+int	lines_result(char *gnl, int fd, int lines, bool flg)
+{
+	free(gnl);
+	close(fd);
+	if (flg)
+		return (0);
+	return (lines);
+}
+
 bool	only_spaces(const char *str)
 {
 	int	i;
@@ -32,9 +41,9 @@ int	rgb_to_int(char *str)
 
 	rgb = ft_split(str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
-		return (/*free_array(rgb),*/ 0);
+		return (free_array(rgb), 0);
 	res = ft_atoi(rgb[0]) << 16 | ft_atoi(rgb[1]) << 8 | ft_atoi(rgb[2]);
-	/*free_array(rgb);*/
+	free_array(rgb);
 	return (res);
 }
 

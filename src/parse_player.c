@@ -12,24 +12,26 @@
 
 #include "../includes/cub3d.h"
 
-void	get_direction(t_data *data, char c)
+static void	save_player(t_data *data, char **map, int y, int x)
 {
-	if (c == 'N')
+	data->player->position.x = x;
+	data->player->position.y = y;
+	if (map[y][x] == 'N')
 	{
 		data->player->dir.x = 0;
 		data->player->dir.y = -1;
 	}
-	else if (c == 'S')
+	else if (map[y][x] == 'S')
 	{
 		data->player->dir.x = 0;
 		data->player->dir.y = 1;
 	}
-	else if (c == 'W')
+	else if (map[y][x] == 'W')
 	{
 		data->player->dir.x = -1;
 		data->player->dir.y = 0;
 	}
-	else if (c == 'E')
+	else if (map[y][x] == 'E')
 	{
 		data->player->dir.x = 1;
 		data->player->dir.y = 0;
@@ -50,13 +52,12 @@ bool	parse_player(t_data *data, char **map)
 		pos.x = -1;
 		while (map[(int)pos.y][(int)++pos.x])
 		{
-			if (map[(int)pos.y][(int)pos.x] == 'N' || map[(int)pos.y][(int)pos.x] == 'S'
-				|| map[(int)pos.y][(int)pos.x] == 'W' || map[(int)pos.y][(int)pos.x] == 'E')
+			if (map[(int)pos.y][(int)pos.x] == 'N'
+					|| map[(int)pos.y][(int)pos.x] == 'S'
+					|| map[(int)pos.y][(int)pos.x] == 'W'
+					|| map[(int)pos.y][(int)pos.x] == 'E')
 			{
-				/*data->player->position.x = pos.x;
-				data->player->position.y = pos.y;
-				get_direction(data, map[(int)pos.y][(int)pos.x]);*/
-				//Checkar com a Gaby como guardar info
+				save_player(data, map, (int)pos.y, (int)pos.x);
 				players++;
 			}
 		}

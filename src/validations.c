@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:45:01 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/02 16:07:34 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:35:12 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 static bool	valid_content(const char *line, int i)
 {
 	if (!((line[i] == 'N' && line[i + 1] == 'O')
-		  || (line[i] == 'S' && line[i + 1] == 'O')
-		  || (line[i] == 'W' && line[i + 1] == 'E')
-		  || (line[i] == 'E' && line[i + 1] == 'A')
-		  || line[i] == 'F'
-		  || line[i] == 'C'
-		  || line[i] == '1'
-		  || line[i] == '\n'))
+			|| (line[i] == 'S' && line[i + 1] == 'O')
+			|| (line[i] == 'W' && line[i + 1] == 'E')
+			|| (line[i] == 'E' && line[i + 1] == 'A')
+			|| line[i] == 'F' || line[i] == 'C'
+			|| line[i] == '1' || line[i] == '\n'))
 		return (false);
 	return (true);
 }
@@ -30,8 +28,10 @@ static bool	invalid_content(char *file)
 {
 	char	*line;
 	int		fd;
-	int 	i;
+	int		i;
+	bool	flg;
 
+	flg = false;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (false);
@@ -42,16 +42,14 @@ static bool	invalid_content(char *file)
 		while (line[i] == ' ')
 			i++;
 		if (!valid_content(line, i))
-		{
-			free(line);
-			close(fd);
-			return (ft_putstr_fd("Error: invalid map elements.\n", 2), true);
-		}
+			flg = true;
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (true);
+	if (flg)
+		return (ft_putstr_fd("Error: invalid map elements.\n", 2), true);
+	return (false);
 }
 
 bool	valid_map(t_data *data, char *file)

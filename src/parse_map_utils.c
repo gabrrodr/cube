@@ -82,7 +82,7 @@ static bool	invalid_spaces(char **map)
 					&& map[i + 1] && map[i + 1][j] != '1'
 					&& map[i + 1][j] != ' ')
 					return (ft_putstr_fd("Error: invalid map "
-										 "borders.\n", 2), true);
+							"borders.\n", 2), true);
 			j++;
 		}
 	}

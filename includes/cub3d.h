@@ -82,7 +82,7 @@ typedef struct s_data
     void        *win;
     char        **map;
     t_map_info  *map_info;
-    t_img       img;
+    t_img       *img;
 	t_player	*player;
 	//t_raycast	*ray;
     t_textures	*textures;
@@ -103,5 +103,9 @@ bool	parse_map(t_data *data, char *file);
 bool	invalid_map(char **map);
 bool	only_spaces(const char *str);
 bool	parse_player(t_data *data, char **map);
+int		lines_result(char *gnl, int fd, int lines, bool flg);
+
+void	free_data(t_data *data);
+void	free_array(char **arr);
 
 #endif

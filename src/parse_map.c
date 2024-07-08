@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:45:24 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/02 15:11:43 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:22:27 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,12 @@ static int	map_lines(char *file)
 	int		lines;
 	int		fd;
 	bool	start;
+	bool	flg;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (0);
+	flg = false;
 	start = false;
 	lines = 0;
 	gnl = get_next_line(fd);
@@ -88,13 +90,11 @@ static int	map_lines(char *file)
 		if (start && gnl[0] != '\0' && gnl[0] != '\n')
 			lines++;
 		if (start && (gnl[0] == '\0' || gnl[0] == '\n' || only_spaces(gnl)))
-			return (free(gnl), close(fd), 0);
+			flg = true;
 		free(gnl);
 		gnl = get_next_line(fd);
 	}
-	free(gnl);
-	close(fd);
-	return (lines);
+	return (lines_result(gnl, fd, lines, flg));
 }
 
 bool	parse_map(t_data *data, char *file)

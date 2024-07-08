@@ -26,8 +26,9 @@ NAME = cub3D
 
 SRC =	src/main.c \
 		src/init.c \
+		src/free.c \
 		src/validations.c \
-		src/utils.c \
+		src/validations_utils.c \
 		src/parse_identifiers.c \
 		src/parse_map.c \
 		src/parse_map_utils.c \
