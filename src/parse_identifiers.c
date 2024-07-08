@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:05:51 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/01 16:05:51 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:42:51 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	validate_rgb(char *str)
 	rgb = ft_split(str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 	{
-		//free_array(rgb);
+		free_array(rgb);
 		return (false);
 	}
 	i = -1;
@@ -29,23 +29,23 @@ static bool	validate_rgb(char *str)
 		if (!is_digit(rgb[i]) || ft_atoi(rgb[i]) < 0 || ft_atoi(rgb[i]) > 255
 			|| ft_strlen(rgb[i]) > 3)
 		{
-			//free_array(rgb);
+			free_array(rgb);
 			return (false);
 		}
 	}
-	//free_array(rgb);
+	free_array(rgb);
 	return (true);
 }
 
 static bool	validate_identifiers(t_data *data)
 {
 	if (!(data->map_info->no && data->map_info->so && data->map_info->we
-		&& data->map_info->ea && data->map_info->f && data->map_info->c))
+			&& data->map_info->ea && data->map_info->f && data->map_info->c))
 		return (false);
 	if (!(valid_file(data->map_info->no, ".xpm")
-		  && valid_file(data->map_info->so, ".xpm")
-		  && valid_file(data->map_info->we, ".xpm")
-		  && valid_file(data->map_info->ea, ".xpm")))
+			&& valid_file(data->map_info->so, ".xpm")
+			&& valid_file(data->map_info->we, ".xpm")
+			&& valid_file(data->map_info->ea, ".xpm")))
 		return (false);
 	if (!validate_rgb(data->map_info->f) || !validate_rgb(data->map_info->c))
 		return (false);
