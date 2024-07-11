@@ -38,7 +38,7 @@ static void	print_info(t_data *data)
 	printf("====================== MAP INFO ======================\n\n");
 }
 
- /*======================================== DEBUG ===============================================*/
+/*======================================== DEBUG ===============================================*/
 
 int	main(int argc, char **argv)
 {
@@ -51,6 +51,8 @@ int	main(int argc, char **argv)
 	data = init_data();
 	if (!data || !valid_map(data, argv[1]))
 		return (free_data(data), 1);
+	raycast(data);
 	print_info(data);
+	init_game(data);
 	free_data(data);
 }

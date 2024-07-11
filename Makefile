@@ -33,6 +33,10 @@ SRC =	src/main.c \
 		src/parse_map.c \
 		src/parse_map_utils.c \
 		src/parse_player.c \
+		src/render.c \
+		src/raycast.c \
+		src/keys.c \
+		src/movement.c \
 
 OBJ = $(SRC:.c=.o)
 
