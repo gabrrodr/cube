@@ -27,6 +27,11 @@
 
 /*---------- MACROS ----------*/
 
+# define WIN_HEIGHT 640
+# define WIN_WIDTH 640
+# define TEX_SIZE 64
+
+
 /*------------- STRUCTURES ---------------*/
 
 typedef struct s_pos
@@ -39,6 +44,23 @@ typedef struct s_textures
 {
 	
 }				t_textures;
+
+typedef struct raycast
+{
+	t_pos	plane;
+	t_pos 	dir;
+	t_pos	next_dist; //distance to next x or y-side (sideDist)
+	t_pos	grid_dist; //length of ray from one x or y-side to next x or y-side (deltaDist)
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	int 	draw_start;
+	int 	draw_end;
+	bool	hit;
+	bool	side;
+	double	cam_x;
+} t_raycast;
 
 typedef struct s_player
 {
@@ -81,16 +103,14 @@ typedef struct s_data
     void        *mlx;
     void        *win;
     char        **map;
+	t_raycast	*ray;
     t_map_info  *map_info;
-    t_img       *img;
+    t_img       img;
 	t_player	*player;
-	//t_raycast	*ray;
     t_textures	*textures;
 }               t_data;
 
 /*---------- FUNCTIONS ----------*/
-
-t_data	*init_data(void);
 
 //VALID MAP
 bool	valid_file(char *file, char *ext);
@@ -105,7 +125,21 @@ bool	only_spaces(const char *str);
 bool	parse_player(t_data *data, char **map);
 int		lines_result(char *gnl, int fd, int lines, bool flg);
 
+//INIT & FREE
+t_data	*init_data(void);
 void	free_data(t_data *data);
 void	free_array(char **arr);
+int		ft_quit(t_data *data);
+void	init_game(t_data *data);
+void	init_mlx(t_data *data);
+
+//RENDER GAME
+void	raycast(t_data *data);
+int 	render_game(t_data *data);
+
+//MOVEMNET
+int		handle_key_press(int keysym, t_data *data);
+int		handle_key_release(int keysym, t_data *data);
+int		move_player(t_data *data);
 
 #endif

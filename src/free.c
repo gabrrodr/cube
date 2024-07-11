@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:54:17 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/08 15:12:10 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:03:39 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,18 @@ static void	free_map_info(t_map_info *map_info)
 	free(map_info);
 }
 
+int	ft_quit(t_data *data)
+{
+	free_data(data);
+	exit(EXIT_SUCCESS);
+}
+
 void	free_data(t_data *data)
 {
 	if (!data)
 		return ;
-	if (data->img && data->img->mlx_img)
-		mlx_destroy_image(data->mlx, data->img->mlx_img);
+	if (data->img.mlx_img)
+		mlx_destroy_image(data->mlx, data->img.mlx_img);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
@@ -57,6 +63,8 @@ void	free_data(t_data *data)
 	}
 	if (data->map)
 		free_array(data->map);
+	if (data->ray)
+		free(data->ray);
 	if (data->map_info)
 		free_map_info(data->map_info);
 	if (data->player)
