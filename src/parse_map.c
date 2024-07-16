@@ -103,7 +103,7 @@ bool	parse_map(t_data *data, char *file)
 	int		fd;
 
 	lines = map_lines(file);
-	if (!lines)
+	if (lines < 3)
 		return (ft_putstr_fd("Error: invalid map.\n", 2), false);
 	data->map = ft_calloc(lines + 1, sizeof(char *));
 	if (!data->map)
@@ -113,7 +113,7 @@ bool	parse_map(t_data *data, char *file)
 		return (ft_putstr_fd("Error: invalid file.\n", 2), false);
 	save_map(data, fd);
 	close(fd);
-	if (invalid_map(data->map))
+	if (border_check(data->map) || invalid_map(data->map))
 		return (false);
 	return (true);
 }

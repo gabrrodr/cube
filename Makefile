@@ -37,6 +37,7 @@ SRC =	src/main.c \
 		src/raycast.c \
 		src/keys.c \
 		src/movement.c \
+		src/flood_fill.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:28:31 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/09 15:46:37 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:53:31 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ static void	line_height(t_raycast *ray)
 	double	wall_dist;
 	int		line_height;
 
-	if(!ray->side)
+	if (!ray->side)
 		wall_dist = (ray->next_dist.x - ray->grid_dist.x);
 	else
 		wall_dist = (ray->next_dist.y - ray->grid_dist.y);
 	line_height = (int)(WIN_WIDTH / wall_dist);
 	ray->draw_start = -line_height / 2 + WIN_HEIGHT / 2;
-	if(ray->draw_start < 0)
+	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	ray->draw_end = line_height / 2 + WIN_HEIGHT / 2;
-	if(ray->draw_end >= WIN_HEIGHT)
+	if (ray->draw_end >= WIN_HEIGHT)
 		ray->draw_end = WIN_HEIGHT - 1;
 }
 
-static void	run_DDA(t_data *data, t_raycast *ray)
+static void	run_dda(t_data *data, t_raycast *ray)
 {
 	while (!ray->hit)
 	{
@@ -51,31 +51,31 @@ static void	run_DDA(t_data *data, t_raycast *ray)
 	}
 }
 
-static void	calculate_DDA(t_data *data, t_raycast *ray)
+static void	calculate_dda(t_data *data, t_raycast *ray)
 {
 	if (ray->dir.x < 0)
 	{
 		ray->step_x = -1;
 		ray->next_dist.x = (data->player->position.x - ray->map_x)
-				* ray->grid_dist.x;
+			* ray->grid_dist.x;
 	}
 	else
 	{
 		ray->step_x = 1;
 		ray->next_dist.x = (ray->map_x + 1.0 - data->player->position.x)
-				* ray->grid_dist.x;
+			* ray->grid_dist.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step_y = -1;
 		ray->next_dist.y = (data->player->position.y - ray->map_y)
-				* ray->grid_dist.y;
+			* ray->grid_dist.y;
 	}
 	else
 	{
 		ray->step_y = 1;
 		ray->next_dist.y = (ray->map_y + 1.0 - data->player->position.y)
-				* ray->grid_dist.y;
+			* ray->grid_dist.y;
 	}
 }
 
@@ -95,20 +95,20 @@ static void	init_ray(t_data *data, t_raycast *ray, int x)
 void	print_info(t_raycast *raycast)
 {
 	(void)raycast;
-	printf("cam_x: %i\n", raycast->draw_start);
-	printf("cam_x: %i\n\n", raycast->draw_end);
+	//printf("cam_x: %i\n", raycast->draw_start);
+	//printf("cam_x: %i\n\n", raycast->draw_end);
 }
 
 void	raycast(t_data *data)
 {
-	int x;
+	int	x;
 
 	x = -1;
 	while (++x < WIN_WIDTH)
 	{
 		init_ray(data, data->ray, x);
-		calculate_DDA(data, data->ray);
-		run_DDA(data, data->ray);
+		calculate_dda(data, data->ray);
+		run_dda(data, data->ray);
 		line_height(data->ray);
 		print_info(data->ray);
 	}

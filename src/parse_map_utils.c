@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:25:27 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/02 15:25:27 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:40:33 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ static bool	invalid_borders(char *line)
 		i++;
 	if (ft_strlen(line) > 1)
 		if (line[i] != '1')
-			return (ft_putstr_fd("Error: invalid map borders.\n", 2), true);
+			return (true);
 	j = ft_strlen(line) - 1;
 	while (line[j] == ' ')
 		j--;
 	if (line[j] != '1')
-		return (ft_putstr_fd("Error: invalid map borders.\n", 2), true);
+		return (true);
 	if (ft_strlen(line) == 1 && line[i] != '1')
-		return (ft_putstr_fd("Error: invalid map borders.\n", 2), true);
+		return (true);
 	return (false);
 }
 
