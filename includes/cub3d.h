@@ -6,7 +6,7 @@
 /*   By: gabrrodr <gabrrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:06:46 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/01 15:46:30 by gabrrodr         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:36:32 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,31 @@
 
 /*------------- STRUCTURES ---------------*/
 
+enum e_direction
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+};
+
 typedef struct s_pos
 {
 	double	x;
 	double	y;
 }				t_pos;
 
+typedef struct s_img
+{
+	void    *mlx_img;
+	int     *addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}               t_img;
+
 typedef struct s_textures
 {
-	
 }				t_textures;
 
 typedef struct raycast
@@ -60,6 +76,10 @@ typedef struct raycast
 	bool	hit;
 	bool	side;
 	double	cam_x;
+	double	wall_dist;
+	int		line_height;
+	int		wall_dir;
+	int		color;
 } t_raycast;
 
 typedef struct s_player
@@ -68,23 +88,10 @@ typedef struct s_player
 	t_pos	dir;
 	t_pos	cam;
 	int		moved;
-	//bool	move_up;
-	//bool	move_down;
-	//bool	move_right;
-	//bool	move_left;
 	int		move_x;
 	int		move_y;
 	int		rotate;
 }				t_player;
-
-typedef struct s_img
-{
-    void    *mlx_img;
-    int     *addr;
-    int		bpp;
-	int		line_len;
-	int		endian;
-}               t_img;
 
 typedef struct s_map_info
 {
@@ -133,10 +140,14 @@ void	free_array(char **arr);
 int		ft_quit(t_data *data);
 void	init_game(t_data *data);
 void	init_mlx(t_data *data);
+bool	init_mlx_img(t_data *data, t_img *img, int width, int height);
 
 //RENDER GAME
 void	raycast(t_data *data);
 int 	render_game(t_data *data);
+void	render(t_data *data);
+void	pick_texture(t_data *data);
+void	load_texture(t_data *data, int x);
 
 //MOVEMNET
 int		handle_key_press(int keysym, t_data *data);

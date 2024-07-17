@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:28:31 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/16 12:53:31 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:12:22 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 static void	line_height(t_raycast *ray)
 {
-	double	wall_dist;
-	int		line_height;
-
 	if (!ray->side)
-		wall_dist = (ray->next_dist.x - ray->grid_dist.x);
+		ray->wall_dist = ray->next_dist.x - ray->grid_dist.x;
 	else
-		wall_dist = (ray->next_dist.y - ray->grid_dist.y);
-	line_height = (int)(WIN_WIDTH / wall_dist);
-	ray->draw_start = -line_height / 2 + WIN_HEIGHT / 2;
+		ray->wall_dist = ray->next_dist.y - ray->grid_dist.y;
+	ray->line_height = (int)(WIN_WIDTH / ray->wall_dist);
+	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = line_height / 2 + WIN_HEIGHT / 2;
+	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_end >= WIN_HEIGHT)
 		ray->draw_end = WIN_HEIGHT - 1;
 }
@@ -90,13 +87,7 @@ static void	init_ray(t_data *data, t_raycast *ray, int x)
 	ray->side = false;
 	ray->map_x = (int)data->player->position.x;
 	ray->map_y = (int)data->player->position.y;
-}
-
-void	print_info(t_raycast *raycast)
-{
-	(void)raycast;
-	//printf("cam_x: %i\n", raycast->draw_start);
-	//printf("cam_x: %i\n\n", raycast->draw_end);
+	ray->wall_dist = 0;
 }
 
 void	raycast(t_data *data)
@@ -110,6 +101,7 @@ void	raycast(t_data *data)
 		calculate_dda(data, data->ray);
 		run_dda(data, data->ray);
 		line_height(data->ray);
-		print_info(data->ray);
+		pick_texture(data);
+		load_texture(data, x);
 	}
 }
