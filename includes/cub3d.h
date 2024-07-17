@@ -124,6 +124,7 @@ bool	invalid_map(char **map);
 bool	only_spaces(const char *str);
 bool	parse_player(t_data *data, char **map);
 int		lines_result(char *gnl, int fd, int lines, bool flg);
+bool	border_check(char **map);
 
 //INIT & FREE
 t_data	*init_data(void);
