@@ -18,23 +18,23 @@ static void	save_player(t_data *data, char **map, int y, int x)
 	data->player->position.y = y;
 	if (map[y][x] == 'N')
 	{
-		data->player->dir.x = 0;
-		data->player->dir.y = -1;
+		data->player->dir = (t_pos){0, -1};
+		data->player->cam = (t_pos){0.66, 0};
 	}
 	else if (map[y][x] == 'S')
 	{
-		data->player->dir.x = 0;
-		data->player->dir.y = 1;
+		data->player->dir = (t_pos){0, 1};
+		data->player->cam = (t_pos){-0.66, 0};
 	}
 	else if (map[y][x] == 'W')
 	{
-		data->player->dir.x = -1;
-		data->player->dir.y = 0;
+		data->player->dir = (t_pos){-1, 0};
+		data->player->cam = (t_pos){0, -0.66};
 	}
 	else if (map[y][x] == 'E')
 	{
-		data->player->dir.x = 1;
-		data->player->dir.y = 0;
+		data->player->dir = (t_pos){1, 0};
+		data->player->cam = (t_pos){0, 0.66};
 	}
 }
 

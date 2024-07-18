@@ -63,7 +63,6 @@ typedef struct s_textures
 
 typedef struct raycast
 {
-	t_pos	plane;
 	t_pos 	dir;
 	t_pos	next_dist; //distance to next x or y-side (sideDist)
 	t_pos	grid_dist; //length of ray from one x or y-side to next x or y-side (deltaDist)
@@ -75,7 +74,6 @@ typedef struct raycast
 	int 	draw_end;
 	bool	hit;
 	bool	side;
-	double	cam_x;
 	double	wall_dist;
 	int		line_height;
 	int		wall_dir;

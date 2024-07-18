@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:28:31 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/17 13:12:22 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:24:04 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,11 @@ static void	calculate_dda(t_data *data, t_raycast *ray)
 
 static void	init_ray(t_data *data, t_raycast *ray, int x)
 {
-	ray->cam_x = 2 * x / (double)WIN_WIDTH - 1;
-	ray->dir.x = data->player->dir.x + ray->plane.x * ray->cam_x;
-	ray->dir.y = data->player->dir.y + ray->plane.y * ray->cam_x;
+	double	cam_x;
+
+	cam_x = 2 * x / (double)WIN_WIDTH - 1;
+	ray->dir.x = data->player->dir.x + data->player->cam.x * cam_x;
+	ray->dir.y = data->player->dir.y + data->player->cam.y * cam_x;
 	ray->grid_dist.x = fabs(1 / ray->dir.x);
 	ray->grid_dist.y = fabs(1 / ray->dir.y);
 	ray->hit = false;
