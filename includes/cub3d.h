@@ -6,7 +6,7 @@
 /*   By: gabrrodr <gabrrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:06:46 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/17 16:36:32 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:52:56 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct s_img
 
 typedef struct s_textures
 {
+	int		index;
+	int		**texture_pixels;
+	int		**textures;
+	double	step;
+	double	pos;
+	int 	x;
+	int 	y;
 }				t_textures;
 
 typedef struct raycast
@@ -75,9 +82,8 @@ typedef struct raycast
 	bool	hit;
 	bool	side;
 	double	wall_dist;
+	double	wall_tex;
 	int		line_height;
-	int		wall_dir;
-	int		color;
 } t_raycast;
 
 typedef struct s_player
@@ -112,7 +118,7 @@ typedef struct s_data
     t_map_info  *map_info;
     t_img       img;
 	t_player	*player;
-    t_textures	*textures;
+    t_textures	*tex;
 }               t_data;
 
 /*---------- FUNCTIONS ----------*/
@@ -139,17 +145,23 @@ int		ft_quit(t_data *data);
 void	init_game(t_data *data);
 void	init_mlx(t_data *data);
 bool	init_mlx_img(t_data *data, t_img *img, int width, int height);
+void	free_int_array(int **arr);
 
 //RENDER GAME
 void	raycast(t_data *data);
 int 	render_game(t_data *data);
 void	render(t_data *data);
-void	pick_texture(t_data *data);
-void	load_texture(t_data *data, int x);
 
 //MOVEMNET
 int		handle_key_press(int keysym, t_data *data);
 int		handle_key_release(int keysym, t_data *data);
 int		move_player(t_data *data);
+
+//TEXTURES
+void	init_textures(t_data *data);
+void	free_textures(t_textures *tex);
+bool	init_tex_pixels(t_data *data);
+bool	handle_textures(t_data *data);
+void	update_tex_pixels(t_data *data, t_raycast *ray, int x);
 
 #endif

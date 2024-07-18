@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void	print_info(t_data *data)
+/*static void	print_info(t_data *data)
 {
 	int i = 0;
 	printf("====================== MAP INFO ======================\n");
@@ -36,7 +36,7 @@ static void	print_info(t_data *data)
 	}
 	printf("\n");
 	printf("====================== MAP INFO ======================\n\n");
-}
+}*/
 
 /*======================================== DEBUG ===============================================*/
 
@@ -51,7 +51,10 @@ int	main(int argc, char **argv)
 	data = init_data();
 	if (!data || !valid_map(data, argv[1]))
 		return (free_data(data), 1);
-	print_info(data);
+	if (!handle_textures(data))
+		return (1);
+	render(data);
+	//print_info(data);
 	init_game(data);
 	free_data(data);
 }

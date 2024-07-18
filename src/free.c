@@ -12,6 +12,19 @@
 
 #include "../includes/cub3d.h"
 
+void	free_int_array(int **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
 void	free_array(char **arr)
 {
 	int	i;
@@ -52,8 +65,6 @@ void	free_data(t_data *data)
 {
 	if (!data)
 		return ;
-	if (data->textures)
-		free(data->textures);
 	if (data->img.mlx_img)
 		mlx_destroy_image(data->mlx, data->img.mlx_img);
 	if (data->win)
@@ -71,5 +82,7 @@ void	free_data(t_data *data)
 		free_map_info(data->map_info);
 	if (data->player)
 		free(data->player);
+	if (data->tex)
+		free_textures(data->tex);
 	free(data);
 }

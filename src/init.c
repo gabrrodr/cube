@@ -35,7 +35,6 @@ static void	init_player(t_data	*data)
 	data->player->move_y = 0;
 }
 
-//make exit_error function with destroy image and free the data struct
 void	init_mlx(t_data *data)
 {
 	t_img	screen_img;
@@ -54,14 +53,10 @@ void	init_mlx(t_data *data)
 
 void	init_game(t_data *data)
 {
-	init_mlx(data);
-	render(data);
-	//textures
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_key_press, data);
 	mlx_hook(data->win, KeyRelease, KeyReleaseMask, &handle_key_release, data);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, &ft_quit, data);
 	mlx_loop_hook(data->mlx, render_game, data);
-	//set_player(data);
 	mlx_loop(data->mlx);
 }
 
@@ -82,12 +77,14 @@ t_data	*init_data(void)
 	data->ray = ft_calloc(1, sizeof(t_raycast));
 	if (!data->ray)
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
-	data->textures = ft_calloc(1, sizeof(t_textures));
-	if (!data->textures)
+	data->tex = ft_calloc(1, sizeof(t_textures));
+	if (!data->tex)
 		return (ft_putstr_fd("Error: mallos execution.\n", 2), NULL);
+	init_textures(data);
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
 	init_player(data);
+	init_mlx(data);
 	return (data);
 }
