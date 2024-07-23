@@ -6,7 +6,7 @@
 /*   By: gabrrodr <gabrrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:06:46 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/18 18:52:56 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:32:19 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@
 
 /*---------- MACROS ----------*/
 
-# define WIN_HEIGHT 640
-# define WIN_WIDTH 640
+# define WIN_HEIGHT 800
+# define WIN_WIDTH 1000
 # define TEX_SIZE 64
+# define PLAYER_SPEED 0.05
+# define ROT_SPEED 0.0045
+# define DIST_EDGE_MOUSE_WRAP 50
 
 
 /*------------- STRUCTURES ---------------*/
@@ -156,6 +159,8 @@ void	render(t_data *data);
 int		handle_key_press(int keysym, t_data *data);
 int		handle_key_release(int keysym, t_data *data);
 int		move_player(t_data *data);
+int		rotate_player(t_data *data, double dir, int dist);
+int		mouse_handle(int x, int y, t_data *data);
 
 //TEXTURES
 void	init_textures(t_data *data);

@@ -56,6 +56,7 @@ void	init_game(t_data *data)
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_key_press, data);
 	mlx_hook(data->win, KeyRelease, KeyReleaseMask, &handle_key_release, data);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, &ft_quit, data);
+	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_handle, data);
 	mlx_loop_hook(data->mlx, render_game, data);
 	mlx_loop(data->mlx);
 }

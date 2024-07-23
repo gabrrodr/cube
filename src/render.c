@@ -47,6 +47,7 @@ void	render(t_data *data)
 	if (!init_tex_pixels(data))
 		return ;
 	raycast(data);
+	mlx_mouse_hide(data->mlx, data->win);
 	render_frame(data);
 }
 

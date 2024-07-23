@@ -56,7 +56,10 @@ static bool	invalid_map_elements(char const *str)
 	{
 		if (str[i] != ' ' && str[i] != '1' && str[i] != '0'
 			&& str[i] != 'N' && str[i] != 'S' && str[i] != 'W' && str[i] != 'E')
+		{
+			printf("str[i] = %c\n", str[i]);
 			return (ft_putstr_fd("Error: invalid map elements.\n", 2), true);
+		}
 	}
 	return (false);
 }
