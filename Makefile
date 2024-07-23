@@ -38,6 +38,8 @@ SRC =	src/main.c \
 		src/keys.c \
 		src/movement.c \
 		src/flood_fill.c \
+		src/textures.c \
+		src/textures_utils.c \
 
 OBJ = $(SRC:.c=.o)
 

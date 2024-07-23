@@ -6,7 +6,7 @@
 /*   By: digoncal <digoncal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:06:52 by digoncal          #+#    #+#             */
-/*   Updated: 2024/07/16 12:41:51 by digoncal         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:04:38 by digoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,51 @@ static	char	**copy_darr(char **arr)
 	return (copy);
 }
 
-bool	border_check(char **map)
+static int	*find_zero(char **map_copy, int *pos)
 {
-	char	**map_copy;
-	int		x;
-	int		y;
+	int	y;
+	int	x;
 
-	map_copy = copy_darr(map);
-	if (!map_copy)
-		return (true);
 	y = -1;
 	while (map_copy[++y])
 	{
 		x = 0;
 		while (map_copy[y][x] == ' ' || map_copy[y][x] == '1')
 			x++;
-		if (map_copy[y][x] == '0')
-			break ;
+		while (map_copy[y][x])
+		{
+			if (map_copy[y][x] == '0')
+			{
+				pos[0] = y;
+				pos[1] = x;
+				return (pos);
+			}
+			x++;
+		}
 	}
-	fill(map_copy, y, x);
+	pos[0] = -1;
+	pos[1] = -1;
+	return (pos);
+}
+
+bool	border_check(char **map)
+{
+	char	**map_copy;
+	int		*pos;
+
+	map_copy = copy_darr(map);
+	if (!map_copy)
+		return (true);
+	pos = malloc(sizeof(int) * 2);
+	if (!pos)
+		return (true);
+	pos = find_zero(map_copy, pos);
+	while (pos[0] != -1 && pos[1] != -1)
+	{
+		fill(map_copy, pos[0], pos[1]);
+		pos = find_zero(map_copy, pos);
+	}
+	free(pos);
 	if (!valid_border(map_copy))
 	{
 		free_array(map_copy);

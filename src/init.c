@@ -12,6 +12,21 @@
 
 #include "../includes/cub3d.h"
 
+bool	init_mlx_img(t_data *data, t_img *img, int width, int height)
+{
+	img->mlx_img = NULL;
+	img->addr = NULL;
+	img->bpp = 0;
+	img->endian = 0;
+	img->line_len = 0;
+	img->mlx_img = mlx_new_image(data->mlx, width, height);
+	if (!img->mlx_img)
+		return (ft_putstr_fd("Error: invalid mlx_img init.\n", 2), false);
+	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp,
+					&img->line_len, &img->endian);
+	return (true);
+}
+
 static void	init_player(t_data	*data)
 {
 	data->player->moved = 0;
@@ -20,7 +35,6 @@ static void	init_player(t_data	*data)
 	data->player->move_y = 0;
 }
 
-//make exit_error function with destroy image and free the data struct
 void	init_mlx(t_data *data)
 {
 	t_img	screen_img;
@@ -39,13 +53,11 @@ void	init_mlx(t_data *data)
 
 void	init_game(t_data *data)
 {
-	init_mlx(data);
-	//handle textures
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_key_press, data);
 	mlx_hook(data->win, KeyRelease, KeyReleaseMask, &handle_key_release, data);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, &ft_quit, data);
+	mlx_hook(data->win, MotionNotify, PointerMotionMask, &mouse_handle, data);
 	mlx_loop_hook(data->mlx, render_game, data);
-	//set_player(data);
 	mlx_loop(data->mlx);
 }
 
@@ -59,18 +71,21 @@ t_data	*init_data(void)
 	data->mlx = NULL;
 	data->win = NULL;
 	data->map = NULL;
+	data->img.mlx_img = NULL;
 	data->map_info = ft_calloc(1, sizeof(t_map_info));
 	if (!data->map_info)
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
 	data->ray = ft_calloc(1, sizeof(t_raycast));
 	if (!data->ray)
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
-	data->textures = ft_calloc(1, sizeof(t_textures));
-	if (!data->textures)
+	data->tex = ft_calloc(1, sizeof(t_textures));
+	if (!data->tex)
 		return (ft_putstr_fd("Error: mallos execution.\n", 2), NULL);
+	init_textures(data);
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		return (ft_putstr_fd("Error: malloc execution.\n", 2), NULL);
 	init_player(data);
+	init_mlx(data);
 	return (data);
 }
