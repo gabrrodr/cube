@@ -34,7 +34,6 @@
 # define ROT_SPEED 0.0045
 # define DIST_EDGE_MOUSE_WRAP 50
 
-
 /*------------- STRUCTURES ---------------*/
 
 enum e_direction
@@ -53,12 +52,12 @@ typedef struct s_pos
 
 typedef struct s_img
 {
-	void    *mlx_img;
-	int     *addr;
+	void	*mlx_img;
+	int		*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
-}               t_img;
+}				t_img;
 
 typedef struct s_textures
 {
@@ -67,27 +66,27 @@ typedef struct s_textures
 	int		**textures;
 	double	step;
 	double	pos;
-	int 	x;
-	int 	y;
+	int		x;
+	int		y;
 }				t_textures;
 
 typedef struct raycast
 {
-	t_pos 	dir;
-	t_pos	next_dist; //distance to next x or y-side (sideDist)
-	t_pos	grid_dist; //length of ray from one x or y-side to next x or y-side (deltaDist)
+	t_pos	dir;
+	t_pos	next_dist; //(sideDist)
+	t_pos	grid_dist; //(deltaDist)
 	int		step_x;
 	int		step_y;
 	int		map_x;
 	int		map_y;
-	int 	draw_start;
-	int 	draw_end;
+	int		draw_start;
+	int		draw_end;
 	bool	hit;
 	bool	side;
 	double	wall_dist;
 	double	wall_tex;
 	int		line_height;
-} t_raycast;
+}				t_raycast;
 
 typedef struct s_player
 {
@@ -102,27 +101,27 @@ typedef struct s_player
 
 typedef struct s_map_info
 {
-    char    *no;
-    char    *so;
-    char    *ea;
-    char    *we;
-    char    *f;
-    char    *c;
-    int   cc_ceiling;
-    int   cc_floor;
-}               t_map_info;
+	char	*no;
+	char	*so;
+	char	*ea;
+	char	*we;
+	char	*f;
+	char	*c;
+	int		cc_ceiling;
+	int		cc_floor;
+}			t_map_info;
 
 typedef struct s_data
 {
-    void        *mlx;
-    void        *win;
-    char        **map;
-	t_raycast	*ray;
-    t_map_info  *map_info;
-    t_img       img;
-	t_player	*player;
-    t_textures	*tex;
-}               t_data;
+	void			*mlx;
+	void			*win;
+	char			**map;
+	t_raycast		*ray;
+	t_map_info		*map_info;
+	t_img			img;
+	t_player		*player;
+	t_textures		*tex;
+}					t_data;
 
 /*---------- FUNCTIONS ----------*/
 
@@ -152,7 +151,7 @@ void	free_int_array(int **arr);
 
 //RENDER GAME
 void	raycast(t_data *data);
-int 	render_game(t_data *data);
+int		render_game(t_data *data);
 void	render(t_data *data);
 
 //MOVEMNET
@@ -161,6 +160,11 @@ int		handle_key_release(int keysym, t_data *data);
 int		move_player(t_data *data);
 int		rotate_player(t_data *data, double dir, int dist);
 int		mouse_handle(int x, int y, t_data *data);
+bool	valid_move(t_data *data, double x, double y);
+int		move_up(t_data *data);
+int		move_down(t_data *data);
+int		move_right(t_data *data);
+int		move_left(t_data *data);
 
 //TEXTURES
 void	init_textures(t_data *data);

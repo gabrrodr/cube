@@ -37,6 +37,7 @@ SRC =	src/main.c \
 		src/raycast.c \
 		src/keys.c \
 		src/movement.c \
+		src/movement_utils.c \
 		src/flood_fill.c \
 		src/textures.c \
 		src/textures_utils.c \

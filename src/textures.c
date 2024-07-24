@@ -14,7 +14,7 @@
 
 static bool	init_texture_img(t_data *data, t_img *image, char *path)
 {
-	int size;
+	int	size;
 
 	size = TEX_SIZE;
 	image->addr = NULL;
@@ -98,16 +98,19 @@ void	update_tex_pixels(t_data *data, t_raycast *ray, int x)
 
 	pick_texture(data, ray);
 	data->tex->x = (int)(ray->wall_tex * TEX_SIZE);
-	if ((ray->side == 0 && ray->dir.x < 0) || (ray->side == 1 && ray->dir.y > 0))
+	if ((ray->side == 0 && ray->dir.x < 0)
+		|| (ray->side == 1 && ray->dir.y > 0))
 		data->tex->x = TEX_SIZE - data->tex->x - 1;
 	data->tex->step = 1.0 * TEX_SIZE / ray->line_height;
-	data->tex->pos = (ray->draw_start - WIN_HEIGHT / 2 + (double)ray->line_height / 2) * data->tex->step;
+	data->tex->pos = (ray->draw_start - WIN_HEIGHT / 2 + \
+		(double)ray->line_height / 2) * data->tex->step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
 		data->tex->y = (int)data->tex->pos & (TEX_SIZE - 1);
 		data->tex->pos += data->tex->step;
-		color = data->tex->textures[data->tex->index][TEX_SIZE * data->tex->y + data->tex->x];
+		color = data->tex->textures[data->tex->index] \
+			[TEX_SIZE * data->tex->y + data->tex->x];
 		if (data->tex->index == NORTH || data->tex->index == EAST)
 			color = (color >> 1) & 0x7F7F7F;
 		if (color > 0)

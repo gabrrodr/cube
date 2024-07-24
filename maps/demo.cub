@@ -2,7 +2,7 @@
 NO./maps/textures/redbrick.xpm
 F 66,38,0
 
-C    210,180,140
+C    64,64,225
                 SO ./maps/textures/redbrick.xpm
    WE     ./maps/textures/eagle.xpm
 EA                                 ./maps/textures/eagle.xpm
