@@ -23,7 +23,6 @@ void	free_textures(t_textures *tex)
 
 void	init_textures(t_data *data)
 {
-
 	data->tex->index = 0;
 	data->tex->texture_pixels = NULL;
 	data->tex->textures = NULL;
@@ -47,7 +46,7 @@ bool	init_tex_pixels(t_data *data)
 	while (i < WIN_HEIGHT)
 	{
 		data->tex->texture_pixels[i] = ft_calloc(WIN_WIDTH + 1,
-			sizeof * data->tex->texture_pixels);
+				sizeof * data->tex->texture_pixels);
 		if (!data->tex->texture_pixels[i])
 			return (ft_putstr_fd("Error: invalid malloc.\n", 2), false);
 		i++;

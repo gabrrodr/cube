@@ -33,9 +33,9 @@ int	handle_key_release(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 		ft_quit(data);
-	if (keysym == XK_w && data->player->move_y >= 1)
+	if ((keysym == XK_w || keysym == XK_Up) && data->player->move_y >= 1)
 		data->player->move_y = 0;
-	if (keysym == XK_s && data->player->move_y <= -1)
+	if ((keysym == XK_s || keysym == XK_Down) && data->player->move_y <= -1)
 		data->player->move_y = 0;
 	if (keysym == XK_d && data->player->move_x >= 1)
 		data->player->move_x = 0;
@@ -53,9 +53,9 @@ int	handle_key_press(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 		ft_quit(data);
-	if (keysym == XK_w)
+	if (keysym == XK_w || keysym == XK_Up)
 		data->player->move_y += 1;
-	if (keysym == XK_s)
+	if (keysym == XK_s || keysym == XK_Down)
 		data->player->move_y += -1;
 	if (keysym == XK_d)
 		data->player->move_x += 1;

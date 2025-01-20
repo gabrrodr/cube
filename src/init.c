@@ -23,7 +23,7 @@ bool	init_mlx_img(t_data *data, t_img *img, int width, int height)
 	if (!img->mlx_img)
 		return (ft_putstr_fd("Error: invalid mlx_img init.\n", 2), false);
 	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp,
-					&img->line_len, &img->endian);
+			&img->line_len, &img->endian);
 	return (true);
 }
 
@@ -45,9 +45,9 @@ void	init_mlx(t_data *data)
 	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "cube3D");
 	if (!data->win)
 		return (ft_putstr_fd("Error: mlx_win\n", 1));
-	screen_img.mlx_img =mlx_new_image(data->mlx, WIN_HEIGHT, WIN_WIDTH);
-	screen_img.addr = (int *)mlx_get_data_addr(screen_img.mlx_img, &screen_img.bpp,
-				&screen_img.line_len, &screen_img.endian);
+	screen_img.mlx_img = mlx_new_image(data->mlx, WIN_HEIGHT, WIN_WIDTH);
+	screen_img.addr = (int *)mlx_get_data_addr(screen_img.mlx_img,
+			&screen_img.bpp, &screen_img.line_len, &screen_img.endian);
 	data->img = screen_img;
 }
 

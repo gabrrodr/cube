@@ -23,6 +23,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 MLXFLAGS = -L ./libs/minilibx-linux -lm -lmlx -Ilmlx -lXext -lX11
 
 NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 SRC =	src/main.c \
 		src/init.c \
@@ -37,15 +38,38 @@ SRC =	src/main.c \
 		src/raycast.c \
 		src/keys.c \
 		src/movement.c \
+		src/movement_utils.c \
+		src/flood_fill.c \
+		src/textures.c \
+		src/textures_utils.c \
+
+SRC_BNS = src/main.c \
+		src/init.c \
+		src/free.c \
+		src/validations.c \
+		src/validations_utils.c \
+		src/parse_identifiers.c \
+		src/parse_map.c \
+		src/parse_map_utils.c \
+		src/parse_player.c \
+		src/render.c \
+		src/raycast.c \
+		src/keys.c \
+		src/movement.c \
+		src/movement_utils.c \
 		src/flood_fill.c \
 		src/textures.c \
 		src/textures_utils.c \
 
 OBJ = $(SRC:.c=.o)
+OBJ_BNS = $(SRC_BNS:.c=.o)
 
 LIBFT = libs/libft/libft.a
 
 all: deps $(NAME)
+	@echo "[$(GREEN)DONE$(RESET)]:\t\t $(GREEN)cub3d$(RESET)"
+
+bonus: deps $(NAME_BONUS)
 	@echo "[$(GREEN)DONE$(RESET)]:\t\t $(GREEN)cub3d$(RESET)"
 
 deps:
@@ -55,6 +79,9 @@ deps:
 
 $(NAME): $(OBJ) $(DEPS)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+
+$(NAME_BONUS): $(OBJ) $(DEPS)
+	@$(CC) $(CFLAGS) $(OBJ_BNS) $(LIBFT) $(MLXFLAGS) -o $(NAME_BONUS)
 
 clean:
 	@echo "$(YELLOW)Removing objects files$(RESET)"
